@@ -1,3 +1,4 @@
 # Quick Reply
-Copy random reply to your keyboard (copypasta)
-Can also tag replies and speech recognition will auto select one of the tagged replies
+Copy random reply to your clipboard out of the replies you've created (Ctrl+Shift+Y on windows)
+
+Just select this folder as source folder for chrome extension

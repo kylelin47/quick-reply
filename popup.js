@@ -3,7 +3,18 @@ function renderMessage(message) {
 }
 
 function generatePasta() {
-  return "sup dude";
+    chrome.storage.sync.get(null, function(items) {
+      var tags = Object.keys(items);
+      var arrayLength = tags.length;
+      var possibleOptions = [];
+      for (var i = 0; i < arrayLength; i++) {
+       possibleOptions = possibleOptions.concat(items[tags[i]]);
+      }
+      var message =
+        possibleOptions[Math.floor(Math.random() * possibleOptions.length)];
+      copyToClipboard(message);
+      renderMessage("Copied to clipboard!");
+    });
 }
 
 function copyToClipboard(message) {
@@ -15,11 +26,8 @@ function copyToClipboard(message) {
   text.select();
   document.execCommand('Copy');
   document.body.removeChild(text);
-  renderMessage("Copied to clipboard!");
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-  var message = generatePasta();
-  console.log(message);
-  copyToClipboard(message);
+  generatePasta();
 });

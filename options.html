@@ -15,15 +15,13 @@
     <script src="angular.min.js"></script>
     <script src="options.js"></script>
   </head>
-  <body ng-controller="optionsController">
-  <ul>
-    <li ng-repeat="phone in phones">
-      <span>{{phone.name}}</span>
-      <p>{{phone.snippet}}</p>
-    </li>
-  </ul>
+  <body ng-controller="OptionsController">
     <div id="pastas">
       <h1>Available Pasta</h1>
+      <div ng-repeat="tag in tags">
+        <h2>{{tag}}</h2>
+        <blockquote ng-repeat="pasta in items[tag]">{{pasta}}</blockquote>
+      </div>
     </div>
     <div id="clear">Clear storage</div>
   </body>
