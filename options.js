@@ -39,22 +39,26 @@ replyApp.controller('OptionsController', ['$scope', function ($scope) {
   };
 
   $scope.deletePasta = function(tag, pasta) {
-    chrome.storage.sync.get(tag, function(items) {
-        var pastas = items[tag];
-        var arrayLength = pastas.length;
-        for (i = 0; i < arrayLength; i++) {
-          if (pasta === pastas[i]) {
-            pastas.splice(i,1);
+    if (confirmDelete()) {
+      chrome.storage.sync.get(tag, function(items) {
+          var pastas = items[tag];
+          var arrayLength = pastas.length;
+          for (i = 0; i < arrayLength; i++) {
+            if (pasta === pastas[i]) {
+              pastas.splice(i,1);
+            }
           }
-        }
-        $scope.savePasta(tag, pastas);
-    });
+          $scope.savePasta(tag, pastas);
+      });
+    }
   };
 
   $scope.deleteTag = function(tag) {
-    chrome.storage.sync.remove(tag, function() {
-      $scope.retrieveStorage();
-    });
+    if (confirmDelete()) {
+      chrome.storage.sync.remove(tag, function() {
+        $scope.retrieveStorage();
+      });
+    }
   };
 
 }]);
@@ -64,4 +68,8 @@ function createObj(tag, pastas) {
   obj[tag] = pastas;
   console.log(obj);
   return obj;
+}
+
+function confirmDelete() {
+  return confirm('Are you sure you want to delete?');
 }

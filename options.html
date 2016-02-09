@@ -18,17 +18,6 @@
     <script src="options.js"></script>
   </head>
   <body ng-controller="OptionsController">
-    <div id="pastas">
-      <h1>Available Pasta</h1>
-      <div ng-repeat="tag in tags">
-        <h2>{{tag}}</h2>
-        <a href="#" ng-click="deleteTag(tag)">Delete All In Tag</a>
-        <div ng-repeat="pasta in items[tag]">
-          <blockquote>{{pasta}}</blockquote>
-          <a href="#" ng-click="deletePasta(tag, pasta)">Delete</a>
-        </div>
-      </div>
-    </div>
     <div id="newPasta">
       <label for="newTag">Tag</label>
       <textarea id="newTag" ng-model="newTag">
@@ -39,6 +28,17 @@
       </textarea>
       <br>
       <a href="#" ng-click="addPasta()">Add new pasta</a>
+    </div>
+    <div id="pastas">
+      <h1>Available Pasta</h1>
+      <div ng-repeat="tag in tags">
+        <h2>{{tag}}</h2>
+        <a href="#" ng-click="deleteTag(tag)">Delete All In Tag</a>
+        <div ng-repeat="pasta in items[tag]">
+          <blockquote>{{pasta}}</blockquote>
+          <a href="#" ng-click="deletePasta(tag, pasta)">Delete</a>
+        </div>
+      </div>
     </div>
   </body>
 </html>

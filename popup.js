@@ -3,21 +3,23 @@ function renderMessage(message) {
 }
 
 function generatePasta() {
-    chrome.storage.sync.get(null, function(items) {
-      var tags = Object.keys(items);
-      var arrayLength = tags.length;
-      var possibleOptions = [];
-      for (var i = 0; i < arrayLength; i++) {
-       possibleOptions = possibleOptions.concat(items[tags[i]]);
-      }
-      var message =
-        possibleOptions[Math.floor(Math.random() * possibleOptions.length)];
-      if (message) {
-        copyToClipboard(message);
-        renderMessage("Copied to clipboard!");
-      }
+  //get active tags list from local.get. callback, get all from sync
+  //check if each tag[i] in active tags list
+  chrome.storage.sync.get(null, function(items) {
+    var tags = Object.keys(items);
+    var arrayLength = tags.length;
+    var possibleOptions = [];
+    for (var i = 0; i < arrayLength; i++) {
+     possibleOptions = possibleOptions.concat(items[tags[i]]);
+    }
+    var message =
+      possibleOptions[Math.floor(Math.random() * possibleOptions.length)];
+    if (message) {
+      copyToClipboard(message);
+      renderMessage("Copied to clipboard!");
+    }
 
-    });
+  });
 }
 
 function copyToClipboard(message) {
