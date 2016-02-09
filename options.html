@@ -1,0 +1,31 @@
+<!doctype html>
+<html ng-app="replyApp">
+  <head>
+    <title>Quick Reply's Options</title>
+    <style>
+      blockquote {
+        font: 14px/22px normal helvetica, sans-serif;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        margin-left: 50px;
+        padding-left: 15px;
+        border-left: 3px solid #ccc;
+      } 
+    </style>
+    <script src="angular.min.js"></script>
+    <script src="options.js"></script>
+  </head>
+  <body ng-controller="optionsController">
+  <ul>
+    <li ng-repeat="phone in phones">
+      <span>{{phone.name}}</span>
+      <p>{{phone.snippet}}</p>
+    </li>
+  </ul>
+    <div id="pastas">
+      <h1>Available Pasta</h1>
+    </div>
+    <div id="clear">Clear storage</div>
+  </body>
+</html>
+
