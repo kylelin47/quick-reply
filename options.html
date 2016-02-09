@@ -10,7 +10,9 @@
         margin-left: 50px;
         padding-left: 15px;
         border-left: 3px solid #ccc;
-      } 
+      }
+      label {display:block;}
+      textarea { display:block;}
     </style>
     <script src="angular.min.js"></script>
     <script src="options.js"></script>
@@ -20,10 +22,24 @@
       <h1>Available Pasta</h1>
       <div ng-repeat="tag in tags">
         <h2>{{tag}}</h2>
-        <blockquote ng-repeat="pasta in items[tag]">{{pasta}}</blockquote>
+        <a href="#" ng-click="deleteTag(tag)">Delete All In Tag</a>
+        <div ng-repeat="pasta in items[tag]">
+          <blockquote>{{pasta}}</blockquote>
+          <a href="#" ng-click="deletePasta(tag, pasta)">Delete</a>
+        </div>
       </div>
     </div>
-    <div id="clear">Clear storage</div>
+    <div id="newPasta">
+      <label for="newTag">Tag</label>
+      <textarea id="newTag" ng-model="newTag">
+      </textarea>
+      <br>
+      <label for="newPasta">Pasta</label>
+      <textarea id="newPasta" ng-model="newPasta" style="width: 600px;">
+      </textarea>
+      <br>
+      <a href="#" ng-click="addPasta()">Add new pasta</a>
+    </div>
   </body>
 </html>
 

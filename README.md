@@ -1,4 +1,9 @@
 # Quick Reply
-Copy random reply to your clipboard out of the replies you've created (Ctrl+Shift+Y on windows)
+Just select this folder as source folder for chrome extension, install it
 
-Just select this folder as source folder for chrome extension
+Click the button, open options, and add replies.
+
+Use Ctrl+Shift+Y (windows) or click the button to get a random reply copied to your clipboard
+
+##TODO
+Set which tags to grab replies from

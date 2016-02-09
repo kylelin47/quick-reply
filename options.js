@@ -2,9 +2,12 @@ var replyApp = angular.module('replyApp', []);
 
 replyApp.controller('OptionsController', ['$scope', function ($scope) {
   angular.element(document).ready(function () {
-    $scope.addStorage({lmao: ['ayy', 'bby'], gg: ['sup']},
-      $scope.retrieveStorage);
+    $scope.retrieveStorage();
   });
+
+  $scope.savePasta = function(tag, pasta) {
+    chrome.storage.sync.set(createObj(tag, pasta), $scope.retrieveStorage);
+  }
 
   $scope.retrieveStorage = function() {
     chrome.storage.sync.get(null, function(items) {
@@ -16,7 +19,49 @@ replyApp.controller('OptionsController', ['$scope', function ($scope) {
     });
   };
 
-  $scope.addStorage = function(items, callback) {
-    chrome.storage.sync.set(items, callback);
+  $scope.addPasta = function() {
+    if ($scope.newTag && $scope.newPasta) {
+      var t = $scope.newTag;
+      var p = $scope.newPasta;
+      chrome.storage.sync.get(t, function(items) {
+        if (Object.keys(items).length === 0) {
+          var pasta = [];
+          pasta.push(p);
+          $scope.savePasta(t, pasta);
+        } else {
+          items[t].push(p);
+          $scope.savePasta(t, items[t]);
+        }
+      });
+      $scope.newPasta = '';
+      $scope.newTag = '';
+    }
   };
+
+  $scope.deletePasta = function(tag, pasta) {
+    chrome.storage.sync.get(tag, function(items) {
+        var pastas = items[tag];
+        var arrayLength = pastas.length;
+        for (i = 0; i < arrayLength; i++) {
+          if (pasta === pastas[i]) {
+            pastas.splice(i,1);
+          }
+        }
+        $scope.savePasta(tag, pastas);
+    });
+  };
+
+  $scope.deleteTag = function(tag) {
+    chrome.storage.sync.remove(tag, function() {
+      $scope.retrieveStorage();
+    });
+  };
+
 }]);
+
+function createObj(tag, pastas) {
+  var obj = {};
+  obj[tag] = pastas;
+  console.log(obj);
+  return obj;
+}

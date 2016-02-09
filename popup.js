@@ -12,8 +12,11 @@ function generatePasta() {
       }
       var message =
         possibleOptions[Math.floor(Math.random() * possibleOptions.length)];
-      copyToClipboard(message);
-      renderMessage("Copied to clipboard!");
+      if (message) {
+        copyToClipboard(message);
+        renderMessage("Copied to clipboard!");
+      }
+
     });
 }
 
