@@ -1,13 +1,19 @@
-var replyApp = angular.module('replyApp', []);
+var replyApp = angular.module("replyApp", []);
 
-replyApp.controller('OptionsController', ['$scope', function ($scope) {
+replyApp.controller("OptionsController", ["$scope", function ($scope) {
+
   angular.element(document).ready(function () {
     $scope.retrieveStorage();
   });
 
+  if (navigator.webkitGetUserMedia) {
+    navigator.webkitGetUserMedia({audio: true}, function() {},
+      function(){console.log("Can't access microphone")});
+  }
+
   $scope.savePasta = function(tag, pasta) {
     chrome.storage.sync.set(createObj(tag, pasta), $scope.retrieveStorage);
-  }
+  };
 
   $scope.retrieveStorage = function() {
     chrome.storage.sync.get(null, function(items) {
@@ -21,7 +27,7 @@ replyApp.controller('OptionsController', ['$scope', function ($scope) {
 
   $scope.addPasta = function() {
     if ($scope.newTag && $scope.newPasta) {
-      var t = $scope.newTag;
+      var t = $scope.newTag.toUpperCase();
       var p = $scope.newPasta;
       chrome.storage.sync.get(t, function(items) {
         if (Object.keys(items).length === 0) {
@@ -33,8 +39,8 @@ replyApp.controller('OptionsController', ['$scope', function ($scope) {
           $scope.savePasta(t, items[t]);
         }
       });
-      $scope.newPasta = '';
-      $scope.newTag = '';
+      $scope.newPasta = "";
+      $scope.newTag = "";
     }
   };
 
@@ -71,5 +77,5 @@ function createObj(tag, pastas) {
 }
 
 function confirmDelete() {
-  return confirm('Are you sure you want to delete?');
+  return confirm("Are you sure you want to delete?");
 }
