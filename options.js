@@ -6,11 +6,6 @@ replyApp.controller("OptionsController", ["$scope", function ($scope) {
     $scope.retrieveStorage();
   });
 
-  if (navigator.webkitGetUserMedia) {
-    navigator.webkitGetUserMedia({audio: true}, function() {},
-      function(){console.log("Can't access microphone")});
-  }
-
   $scope.savePasta = function(tag, pasta) {
     chrome.storage.sync.set(createObj(tag, pasta), $scope.retrieveStorage);
   };
@@ -46,18 +41,18 @@ replyApp.controller("OptionsController", ["$scope", function ($scope) {
 
   $scope.deletePasta = function(tag, pasta) {
     chrome.storage.sync.get(tag, function(items) {
-        var pastas = items[tag];
-        var arrayLength = pastas.length;
-        for (i = 0; i < arrayLength; i++) {
-          if (pasta === pastas[i]) {
-            pastas.splice(i,1);
-          }
+      var pastas = items[tag];
+      var arrayLength = pastas.length;
+      for (i = 0; i < arrayLength; i++) {
+        if (pasta === pastas[i]) {
+          pastas.splice(i,1);
         }
-        if (pastas.length === 0) {
-          $scope.deleteTag(tag);
-        } else {
-          $scope.savePasta(tag, pastas);
-        }
+      }
+      if (pastas.length === 0) {
+        $scope.deleteTag(tag);
+      } else {
+        $scope.savePasta(tag, pastas);
+      }
     });
   };
 
@@ -66,7 +61,6 @@ replyApp.controller("OptionsController", ["$scope", function ($scope) {
       $scope.retrieveStorage();
     });
   };
-
 }]);
 
 function createObj(tag, pastas) {

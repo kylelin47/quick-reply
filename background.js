@@ -62,6 +62,10 @@ chrome.commands.onCommand.addListener(function(command) {
       }
       recognition.onerror = function(event) {
         console.log("error: " + event.error);
+        if (event.error === "not-allowed") {
+          var newURL = "microphone.html";
+          chrome.tabs.create({ url: newURL });
+        }
       };
 
       recognition.onend = function(event) {

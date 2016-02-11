@@ -18,6 +18,10 @@
     "48": "icon.png",
     "128": "icon.png"
   },
+  "options_ui": {
+    "page": "options.html",
+    "chrome_style": true
+  },
   "commands": {
     "Get Tag": {
       "suggested_key": {
